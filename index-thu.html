@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://raw.githack.com/jamiebicknell/Toggle-Switch/master/toggleswitch.css" rel="stylesheet" />
+    <link href="fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="fontawesome/css/brands.css" rel="stylesheet">
+    <link href="fontawesome/css/solid.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <title>oTime</title>
+</head>
+
+<body>
+    <div class="container-fluid bg-primary text-white header" style=" position: fixed">
+        <div class="row">
+            <div class="col-md-2 px-2">
+                <a href="index.html"><img src="image/logo.png" id="logo" alt=""></a>
+            </div>
+            <div class="col-md-5 px-2">
+            </div>
+            <div class="col-md-5 px-2" style="float: right;">
+                <i class="iconic fa-regular fa-gear fa-bars p-4" style="font-size: 30px;float: right;" id="gear"></i>
+                <i class="iconic fa-regular fa-moon fa-bars p-4" style="font-size: 30px;float: right;" id="moon" onclick="return moon();"></i>
+                <i class="iconic fa-regular fa-lightbulb p-4" style="font-size: 30px;float: right;"></i>
+                <i class="iconic fa-solid fa-language fa-bars p-4" style="font-size: 30px;float: right;"></i>
+                <i class="iconic fa-solid fa-code fa-bars p-4" style="font-size: 30px;float: right;"></i>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .dot {
+            height: 25px;
+            width: 25px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .switch {
+            position: relative;
+            width: 37px;
+            height: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 11px;
+            margin-left: 20px;
+        }
+    </style>
+
+    <div id="editGear" class="p-3" style="width: 20%; height: 100vh; background-color: #3d3c3c; position: fixed; top: 0px; right: 0px; display: none; z-index: 11;">
+        <div class="row px-3">
+            <h5 class="p-3" style="color: white; border-bottom: 1px solid white;">Cài đặt
+                <i class="fa-solid fa-xmark me-3" style="float: right; font-size: 28px; color: white; position: absolute; top: 25px; right: 15px;" onclick="exist();"></i>
+            </h5>
+        </div>
+        <div class="setting row text-white">
+            <form action="">
+                <div class="row my-2">
+                    <div class="col-md-8">
+                        <h6>12 hours(am/pm)</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <input type='checkbox' name='opt1' id='opt1' value='1' class='toggleswitch' checked='checked' />
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-8">
+                        <h6>Show Date</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <input type='checkbox' name='opt1' id='opt1' value='1' class='toggleswitch' checked='checked' />
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-8">
+                        <h6>Show Nation</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <input type='checkbox' name='opt1' id='opt1' value='1' class='toggleswitch' checked='checked' />
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-8">
+                        <h6>Night Mode</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <input type='checkbox' name='opt1' id='opt1' value='1' class='toggleswitch' checked='checked' />
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <h6 class="mb-3">Colors</h6>
+                    <div>
+                        <span class="dot me-2 mb-2 bg-primary"></span>
+                        <span class="dot me-2 mb-2 bg-secondary"></span>
+                        <span class="dot me-2 mb-2 bg-success"></span>
+                        <span class="dot me-2 mb-2 bg-danger"></span>
+                        <span class="dot me-2 mb-2 bg-warning"></span>
+                        <span class="dot me-2 mb-2 bg-info"></span>
+                        <span class="dot me-2 mb-2 bg-light"></span>
+                        <span class="dot me-2 mb-2 bg-dark"></span>
+                        <span class="dot me-2 mb-2 bg-body"></span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;"> OK </button>
+            </form>
+        </div>
+    </div>
+    <div class="body" style="display: flex; width: 100%;">
+        <div class="menu" style="width: 100px; height: 100vh; background-color: #3d3c3c; position: fixed; margin-top: 5.7%;">
+            <ul>
+                <li class="active"><a href=""><i class="fa-regular fa-bell"></i> <br><p>Báo thức online</p></a></li>
+                <li><a href=""><i class="fa-regular fa-circle-arrow-down"></i><br><p>Đếm ngược online</p></a></li>
+                <li><a href=""><i class="fa-regular fa-bolt"></i> <br><p>Bấm giờ online</p></a></li>
+                <li><a href=""><i class="fa-regular fa-clock"></i><br><p>Đông hồ online</p></a></li>
+                <li><a href=""><i class="fa-regular fa-calendar"></i><br><p>Đếm ngày online</p></a></li>
+            </ul>
+        </div>
+        <div class="content" style="width: 100%; height: auto; background-color: #f0f0f0; padding: 8% 2.3% 2.3% 10%;">
+            <div class="box text-center" id="unset" style="background-color: white; padding-bottom: 1%; display: block;">
+                <div class="function p-2" style="text-align: right !important; font-size: 25px;">
+                    <i class="fa-regular fa-share px-2 py-2"></i>
+                    <i class="fa-solid fa-circle-plus px-2 py-2"></i>
+                    <i class="fa-solid fa-circle-minus px-2 py-2"></i>
+                    <i class="fa-solid fa-expand fa-bars px-2 py-2"></i>
+                </div>
+                <h5 class="days" style="text-align:center; font-size: 32px;">VIET NAM</h5>
+                <strong><h1 class="hour" style="margin: 0; text-align:center; font-size: 132px; color: #555!important;">1:16:55</h1></strong>
+                <h5 class="days" style="text-align:center; font-size: 40px;">FRI-DEC 2. 2022</h5>
+                <button type="button" class="btn btn-success mb-3" id="setAlarm">Set Alarm</button>
+            </div>
+
+            <!-- ============================ -->
+
+            <div class="box text-center" id="currently" style="background-color: white; padding-bottom: 1%;display: none;">
+                <div class="function p-2" style="text-align: right !important; font-size: 25px;">
+                    <i class="fa-regular fa-share px-2 py-2"></i>
+                    <i class="fa-solid fa-expand fa-bars px-2 py-2"></i>
+                </div>
+                <strong><h1 class="hour" style="margin: 0; text-align:center; font-size: 43px; color: #555!important;">1:16:55 PM</h1>
+                    </strong>
+                <h5 class="days" style="text-align:center; font-size: 22px;">FRI-DEC 2. 2022</h5>
+            </div>
+
+            <!-- =================================== -->
+
+            <style>
+                .radialProgressBar {
+                    border-radius: 50%;
+                    width: 22rem;
+                    height: 22rem;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    margin: auto;
+                    background: #ddd;
+                }
+                
+                .radialProgressBar .overlay {
+                    border-radius: 50%;
+                    width: 20rem;
+                    height: 20rem;
+                    margin: auto;
+                    background: #fff;
+                    text-align: center;
+                    padding-top: 20%;
+                }
+                
+                .progress-10 {
+                    background-image: -webkit-linear-gradient(36deg, #ddd 50%, transparent 50%), -webkit-linear-gradient(left, #028cd5 50%, #ddd 50%);
+                    background-image: linear-gradient(54deg, #ddd 50%, transparent 50%), linear-gradient(90deg, #028cd5 50%, #ddd 50%);
+                }
+            </style>
+
+            <div class="box text-center" id="alarmFuture" style="height: auto; background-color: white; padding-bottom: 1%;
+            margin-top: 15px; padding-top: 15px; display: none;">
+                <div class="radialProgressBar progress-10">
+                    <div class="overlay">
+                        <h4>Báo thức</h4>
+                        <strong><h1 class="hour" style="margin: 0; text-align:center; font-size: 43px; color: #555!important;"><i class="fa-solid fa-bell" style="font-size: 35px;"></i> 1:16:55 PM</h1></strong>
+                        <h5 class="days" style="text-align:center; font-size: 22px;"><i class="fa-solid fa-clock-rotate-left"></i> 1:16:55</h5>
+                        <div class="progress" style="width: 75%; height: 20px; background-color: #3d3c3c; margin-bottom: 10px; position: relative; margin: 0 auto 15px auto;">
+                            <div class="realTime" style="width: 60%; height: 20px; background-color: #057aff; margin-bottom: 10px; position: absolute; top: 0px;"></div>
+                        </div>
+                        <button type="button" class="btn btn-danger mb-3" id="stopAlarm">Dừng báo thức</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =================================== -->
+            <div style="display: flex;">
+                <div class="box text-center px-3" style="background-color: white; padding-bottom: 1%; margin-top: 15px; padding-top: 15px;  width: 49%;">
+                    <h4>Danh sách báo thức được sử dụng gần đây</h4>
+                    <table class="table" style=" margin: 15px auto 15px auto;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tên</th>
+                                <th scope="col">Báo thức</th>
+                                <th scope="col">Bắt đầu</th>
+                                <th scope="col">Đã dừng</th>
+                                <th scope="col">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry the Bird</td>
+                                <td>@twitter</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry the Bird</td>
+                                <td>@twitter</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry the Bird</td>
+                                <td>@twitter</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry the Bird</td>
+                                <td>@twitter</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <Button class="btn btn-success">Đặt lại</Button>
+                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>XOÁ</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box text-center px-3" style="margin-left: 2%; background-color: white; padding-bottom: 1%; margin-top: 15px; padding-top: 15px;  width: 49%; display: block;">
+                    <h4>Cài đặt báo thức cho thời gian cụ thể</h4>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                    <button class="btn btn-primary m-2">5:30</button>
+                </div>
+            </div>
+
+            <div class="box text-center p-3" id="tutor" style="background-color: white; padding-bottom: 1%; margin-top: 15px; padding-top: 15px; width: 100%;">
+                <h4>Cách sử dụng đồng hồ báo thức online</h4>
+                <p>Bước 1: Bấm vào nút màu xanh đặt giờ báo thức ở dưới phần ngày tháng. </p>
+                <p>Bước 2: Chọn giờ, phút bạn muốn thông báo và âm thanh. Nếu bạn không chọn âm thanh, máy sẽ tự động cài đặt âm thanh chế độ mặc định. Tiếp theo bạn nhập tên báo thức để lần sau bạn không phải điển vào form mà chỉ cần chọn giờ trong cái
+                    bảnh bên dưới sau lần chọn đầu tiên (nhưng để làm được chức năng này bạn nên đăng nhập hoặc đăng ký trước).</p>
+                <p>Bước 3: Bạn có thể thử bằng cách ấn nút thử hoặc ấn nút bắt đầu để bắt đầu ngay.</p>
+            </div>
+
+            <div class="box text-center" id="share" style="background-color: white; padding-bottom: 1%; margin-top: 15px; padding-top: 15px;">
+                <div class="input-group flex-nowrap p-3">
+                    <input type="text" class="form-control" placeholder="https://otime.com/#time=18:34&title=Alarm" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
+                <div class="image">
+                    <img src="image/facebook.png" alt="">
+                    <img src="image/whatsapp.png" alt="">
+                    <img src="image/zalo.png" alt="">
+                    <img src="image/pinterest.png" alt="">
+                    <img src="image/twitter.png" alt="">
+                </div>
+            </div>
+
+            <!-- =======================footer -->
+
+            <div class="footer" style="width:100%;height: 50px; background-color: #1a1a1a;margin-top: 15px;text-align: center;
+            padding: 15px 35px;color: #ddd; font-size: 13px;">
+                <a href="/contacts/" rel="nofollow" style="color: #ddd;">Contacts</a> | <a href="/terms/" rel="nofollow" style="color: #ddd;">Terms of use</a> | <a href="/privacy/" rel="nofollow" style="color: #ddd;">Privacy</a> | <span class="text-nowrap">© 2022 otime.com</span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="editAlarm" style="display: none;width: 100%; height: 100vh; background-color: #787878; position: fixed; top: 0; left:0; opacity: 0.3; z-index: 1;" onclick="exist();"></div>
+    <div class="tableEdit" style="display: none;width: 600px; height: 380px; background-color: white; z-index: 201;position: fixed; top: 20%; left: 30%; border-radius: 5px;">
+        <div class="headertable" style="width: 100%; height: 78.39px; background-color: #0090dd; padding: 20px 15px; position: absolute; border-radius: 5px 5px 0 0;">
+            <h4 style="color: white;">Đặt thời gian thông báo</h4>
+            <i class="fa-solid fa-xmark" style="float: right; font-size: 28px; color: white; position: absolute; top: 25px; right: 15px;" onclick="exist();"></i>
+        </div>
+        <div class="bodyTable" style="width: 100%; height: auto; padding: 30px 15px 0px 15px; position: absolute; top: 14%; border-radius: 5px 5px 0 0;">
+            <form action="" method="post" class="align-center">
+                <div class="row">
+                    <div class="boxHour col-md-6">
+                        <label for="">Giờ: </label>
+                        <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                    </div>
+                    <div class="boxHour col-md-6">
+                        <label for="">Phút: </label>
+                        <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                    </div>
+                </div>
+                <label for="" style="padding-top: 10px;">Âm thanh báo thức: </label>
+                <select class="form-select" aria-label="Default select example">
+                        <option selected>Tiếng gà gáy: </option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                </select>
+                <label for="" style="padding-top: 10px;">Tên báo thức: </label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+        </div>
+        <div class="footertable" style="width: 100%; height: 68.39px; background-color: #0090dd; 
+            position: absolute; bottom: 0%; border-radius: 0 0 5px 5px;padding: 15px;
+            text-align: right;border-top: 1px solid #e5e5e5; background-color: #fcfcfc;">
+            <div class="row">
+                <div class="align-left col-md-1">
+                    <button type="button" class="btn btn-outline-secondary">Test</button>
+                </div>
+                <div class="text-right col-md-11">
+                    <button type="button" class="btn btn-outline-secondary" onclick="exist();">Cancel</button>
+                    <button type="button" class="btn btn-success" id="start">Start</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
+    <script type='text/javascript' src='https://raw.githack.com/jamiebicknell/Toggle-Switch/master/jquery.toggleswitch.js'></script>
+    <script>
+        jQuery(document).ready(function($) {
+            $('.toggleswitch').toggleSwitch();
+            $("#opt2").trigger("click"); // turn it on
+        });
+
+
+        $("#setAlarm").click(() => {
+            $("div.editAlarm").css("display", "block");
+            $("div.tableEdit").css("display", "block");
+        })
+
+        function moon() {
+
+            if ($("#moon").hasClass('fa-moon')) {
+
+                $("#moon").removeClass('fa-moon').addClass('fa-sun');
+                $("div.container-fluid.bg-primary.text-white.header").removeClass("bg-primary").addClass("bg-dark")
+                    .addClass("text-info").css("border-bottom", "1px solid #404a62")
+                $("div.menu").addClass("bg-dark").css("border-right", "1px solid #404a62")
+                $("div.content").addClass("bg-dark")
+                $("div.box").addClass("bg-dark").css("border", "1px solid #404a62")
+                $("body").addClass("text-white")
+                $("table").addClass("text-white")
+
+                // Bỏ vào một mảng cho vào trong database những trường có tên là thuộc tính của css hoặc lớp của bootstrap
+
+            } else {
+                $("#moon").removeClass('fa-sun').addClass('fa-moon');
+                $("div.container-fluid.text-white.header.bg-dark.text-info").removeClass("bg-dark").addClass("bg-primary").addClass("text-dark").css("border-bottom", "")
+                $("div.menu").removeClass("bg-dark").css("border-right", "")
+                $("div.content").removeClass("bg-dark")
+                $("div.box").removeClass("bg-dark").css("border", "")
+                $("body").removeClass("text-white")
+                $("table").removeClass("text-white")
+
+                // Xoá đi trong database nếu như quay lại cũ
+
+            }
+
+        }
+
+        $("#stopAlarm").click(() => {
+            $("div#unset").css("display", "block");
+            $("div#currently").css("display", "none");
+            $("div#alarmFuture").css("display", "none");
+        })
+
+        $("#gear").click(() => {
+            $("div.editAlarm").css("display", "block");
+            $("div#editGear").css("display", "block");
+        })
+
+        $("#start").click(() => {
+            $("div.start").css("display", "none");
+            $("div.editAlarm").css("display", "none");
+            $("div.tableEdit").css("display", "none");
+            $("div.howToUse").css("display", "none");
+
+            $("div#unset").css("display", "none");
+            $("div#currently").css("display", "block");
+            $("div#alarmFuture").css("display", "block");
+        })
+
+        function exist() {
+            $("div#editGear").css("display", "none");
+            $("div.start").css("display", "none");
+            $("div.editAlarm").css("display", "none");
+            $("div.tableEdit").css("display", "none");
+            $("div.howToUse").css("display", "none");
+        }
+    </script>
+</body>
+
+</html>

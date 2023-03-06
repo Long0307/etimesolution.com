@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body style="padding-top: 30%;">
+    <div class="box text-center" id="unset" style="background-image: url('image/background-default.jpg'); padding-bottom: 1%; display: block; height: 100vh; color: white; padding-top: 8%; position: relative;">
+        <div class="function p-2" style="font-size: 25px; background-color: black; opacity: 0.8; position: absolute; top: 5px; right: 52px; border-radius: 5px;">
+            <i class="fa-solid fa-xmark fa-bars px-2 py-2" onclick="return existFullscreen();"></i>
+        </div>
+        <div class="function p-2" style="text-align: right !important; font-size: 25px; background-color: black; opacity: 0.8; position: absolute; top: 5px; right: 5px; border-radius: 5px;">
+            <i class="fa-solid fa-expand fa-bars px-2 py-2" onclick="return openFullscreen();"></i>
+        </div>
+        <h5 class="days" id="nation" style="text-align:center; font-size: 32px;">Vietnam</h5>
+        <strong>
+					<h1 class="hour" id="hourpc" style="margin: 0; text-align:center; font-size: 132px;">18:48:02 PM</h1>
+				</strong>
+        <strong>
+					<h1 class="hour" id="hourForMobile" style="margin: 0; text-align:center; font-size: 75px;">18:48:02 PM</h1>
+				</strong>
+        <h5 class="days" id="realDay" style="text-align:center; font-size: 40px;">2023-01-02</h5>
+        <!-- 				<div class="function p-2" style="font-size: 25px; background-color: black; opacity: 0.8; position: absolute; bottom: 5px; right: 52px; border-radius: 5px;">
+					<i class="fa-solid fa-download px-2 py-2" onclick="return download();"></i>
+				</div> -->
+        <div class="function p-2" style="font-size: 25px; background-color: black; opacity: 0.8; position: absolute; bottom: 5px; right: 5px; border-radius: 5px; width: 42px;">
+            <i class="fa-solid fa-ellipsis-vertical px-2 py-2" onclick="return settingScreen();"></i>
+        </div>
+        <div id="settings">
+            <div id="toggles">
+                <div class="section left">
+                    <div class="toggle theme">
+                        <div class="title">Theme</div>
+                        <div class="options">
+                            <div class="option" value="system">System</div>
+                            <div class="option" value="light">Light</div>
+                            <div class="option" value="dark">Dark</div>
+                            <div class="option selected" value="image">Bing Image</div>
+                        </div>
+                    </div>
+                    <div class="toggle seconds">
+                        <div class="title">Seconds</div>
+                        <div class="options">
+                            <div class="option selected" value="show">Show</div>
+                            <div class="option" value="hide">Hide</div>
+                        </div>
+                    </div>
+                    <div class="toggle hours">
+                        <div class="title">Hours</div>
+                        <div class="options">
+                            <div class="option selected" value="24">24</div>
+                            <div class="option" value="12">12</div>
+                            <div class="option" value="12-ampm">12 + AM/PM</div>
+                        </div>
+                    </div>
+                    <div class="toggle date">
+                        <div class="title">Date</div>
+                        <div class="options">
+                            <div class="option" value="hide">Hide</div>
+                            <div class="option selected" value="d">D</div>
+                            <div class="option" value="dd">DD</div>
+                            <div class="option" value="dm">DD/MM</div>
+                            <div class="option" value="md">MM/DD</div>
+                        </div>
+                    </div>
+                    <div class="toggle day">
+                        <div class="title">Day</div>
+                        <div class="options">
+                            <div class="option selected" value="short">Short</div>
+                            <div class="option" value="full">Full</div>
+                            <div class="option" value="hide">Hide</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section right">
+                    <div class="toggle month">
+                        <div class="title">Month</div>
+                        <div class="options">
+                            <div class="option" value="short">Short</div>
+                            <div class="option selected" value="full">Full</div>
+                            <div class="option" value="hide">Hide</div>
+                        </div>
+                    </div>
+                    <div class="toggle year">
+                        <div class="title">Year</div>
+                        <div class="options">
+                            <div class="option" value="short">Short</div>
+                            <div class="option selected" value="full">Full</div>
+                            <div class="option" value="hide">Hide</div>
+                        </div>
+                    </div>
+                    <div class="toggle imageDescription canHide">
+                        <div class="title">Image Description</div>
+                        <div class="options">
+                            <div class="option selected" value="show">Show</div>
+                            <div class="option" value="hide">Hide</div>
+                        </div>
+                    </div>
+                    <div class="toggle imageEffect canHide">
+                        <div class="title">Image Effect</div>
+                        <div class="options">
+                            <div class="option selected" value="normal">Normal</div>
+                            <div class="option" value="blur">Blur</div>
+                            <div class="option" value="darken">Darken</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="about">Created by <a class="email" rel="noopener nofollow" href="mailto:giladgd@gmail.com">Gilad S.</a></div>
+                <div class="links"><a class="linkButton productHunt" target="_blank" href="https://www.producthunt.com/posts/clockie" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12,0C5.4,0,0,5.4,0,12s5.4,12,12,12s12-5.4,12-12S18.6,0,12,0z M13.6,14.4h-3.4V18H7.8V6h5.8c2.3,0,4.2,1.9,4.2,4.2S15.9,14.4,13.6,14.4z M15.4,10.2c0,1-0.8,1.8-1.8,1.8h-3.4V8.4h3.4C14.6,8.4,15.4,9.2,15.4,10.2z"></path></svg><div class="tooltip right">Clockie on ProductHunt</div></a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script>
+        // function download(){
+
+
+
+        // }
+
+        function settingScreen() {
+
+            alert(1);
+
+        }
+
+        var elem = document.documentElement;
+
+        function openFullscreen() {
+            if (elem.requestFullscreen) {
+                $("#unset").css('paddingTop', '12%');
+                $("div.function.p-2").html('<i class="fa-solid fa-compress px-2 py-2" onclick="return offFullscreen();"></i>');
+                $("i.fa-solid.fa-expand.fa-bars.px-2.py-2").remove();
+                elem.requestFullscreen();
+            }
+        }
+
+        function existFullscreen() {
+
+            window.location.href = window.location.href;
+
+        }
+
+        function offFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+
+            $("div.function.p-2").html('<i class="fa-solid fa-expand fa-bars px-2 py-2" onclick="return openFullscreen();"></i>');
+            $("i.fa-solid.fa-compress.px-2.py-2").remove();
+        }
+
+        window.addEventListener('resize', (evt) => {
+            if (window.innerHeight == screen.height) {
+                console.log('FULL SCREEN');
+            } else {
+                $("#unset").css('paddingTop', '8%');
+                console.log('NORMAL SCREEN');
+            }
+        });
+    </script>
+</body>
+
+</html>
